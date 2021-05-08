@@ -17,35 +17,6 @@ CODE SEGMENT
     ASSUME cs:CODE, ds:DATA, ss:AStack
 
 
-PRINT_NEWLINE proc near
-
-    push ax
-    push dx
-
-    mov dx, offset NEWLINE
-    mov ah, 9h
-    int 21h
-
-    pop dx
-    pop ax
-
-    ret
-
-PRINT_NEWLINE endp
-
-WRITE_STRING proc near
-
-    push ax
-
-    mov ah, 9h
-    int 21h
-
-    pop ax
-    ret
-
-WRITE_STRING endp
-
-
 MY_INTERRUPT proc far
 
     jmp start_interrupt
@@ -139,7 +110,7 @@ output_message:
     ; просим курсор не сдвигаться
     mov al, 0h
     ; длина строки
-    mov cx, 24
+    mov cx, 25
     ; номер страницы
     mov bh, 0
     int 10h
@@ -170,6 +141,35 @@ exit_interrupt:
 
 INTERRUPT_SIZE:
 MY_INTERRUPT endp
+
+
+PRINT_NEWLINE proc near
+
+    push ax
+    push dx
+
+    mov dx, offset NEWLINE
+    mov ah, 9h
+    int 21h
+
+    pop dx
+    pop ax
+
+    ret
+
+PRINT_NEWLINE endp
+
+WRITE_STRING proc near
+
+    push ax
+
+    mov ah, 9h
+    int 21h
+
+    pop ax
+    ret
+
+WRITE_STRING endp
 
 
 CHECK_ALREADY_LOADED proc near
